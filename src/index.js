@@ -48,9 +48,19 @@ function Game() {
 
   function getStatus() {
     if (winner) {
-      return 'Winner:' + winner;
+      return (
+      <div className='modal'>
+      <p className='modal-text'>Winner: {winner}</p>
+      <div className="modal-button">{renderRestartButton()}</div>
+      </div>
+      );
     } else if (isBoardFull(squares)) {
-      return 'Draw!';
+      return (
+        <div className='modal'>
+        <p className='modal-text'>Draw!</p>
+        <div className="modal-button">{renderRestartButton()}</div>
+        </div>
+        );
     } else {
       return 'Next player: ' + symbol;
     }
@@ -87,8 +97,10 @@ function Game() {
   }
 
   return (
+    <>
     <div className="container">
       <div className="game">
+    <h1>Noughts and Crosses</h1>
         <div className="game-board">
           <div className="board-row">
            {renderSquare(0)}
@@ -107,9 +119,10 @@ function Game() {
           </div>
         </div>
         <div className="game-info">{getStatus()}</div>
-        <div className="restart-button">{renderRestartButton()}</div>
+        {!winner && <div className="restart-button">{renderRestartButton()}</div> }
       </div>
     </div>
+    </>
   )
 }
 
