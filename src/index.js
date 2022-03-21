@@ -1,134 +1,141 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import CalculateWinner from './CalculateWinner';
+import GetStatus from './GetStatus';
 import './index.css';
-
-function Square({ value, onClick }) {
-	return (
-		<button className="square" onClick={onClick}>
-			{value}
-		</button>
-	);
-}
-
-function Restart({ onClick }) {
-	return (
-		<button className="restart" onClick={onClick}>
-			Restart
-		</button>
-	);
-}
+import RenderRestartButton from './RenderRestartButton';
+import RenderSquare from './RenderSquare';
+import Scores from './Scores';
 
 function Game() {
 	const [squares, setSquares] = useState(Array(9).fill(null));
 	const [symbol, setSymbol] = useState('X');
-	const winner = calculateWinner(squares);
+	const winner = CalculateWinner(squares);
+	const [players, setPlayers] = useState(['X', 'O']);
+	const [scores, setScores] = useState([0, 0]);
 
-	function renderSquare(i) {
-		return (
-			<Square
-				value={squares[i]}
-				onClick={() => {
-					if (squares[i] === null && !winner) {
-						const nextSquares = squares.slice();
-						nextSquares[i] = symbol;
-						setSquares(nextSquares);
-						setSymbol(symbol === 'X' ? 'O' : 'X');
-					}
-				}}
-			/>
-		);
-	}
+	const resetScores = () => {
+		setScores([0, 0]);
+	};
 
-	function renderRestartButton() {
-		return (
-			<Restart
-				onClick={() => {
-					setSquares(Array(9).fill(null));
-					setSymbol('X');
-				}}
-			/>
-		);
-	}
+	const changeNames = () => {
+		alert('username');
+		// setPlayers
+	};
 
-	function getStatus() {
-		if (winner) {
-			return (
-				<div className="modal">
-					<p className="modal-text">Winner: {winner}</p>
-					<div className="modal-button">{renderRestartButton()}</div>
-				</div>
-			);
-		} else if (isBoardFull(squares)) {
-			return (
-				<div className="modal">
-					<p className="modal-text">Draw!</p>
-					<div className="modal-button">{renderRestartButton()}</div>
-				</div>
-			);
-		} else {
-			return 'Next player: ' + symbol;
+	useEffect(() => {
+		if (winner === 'X') {
+			scores[0]++;
+		} else if (winner === 'O') {
+			scores[1]++;
 		}
-	}
-
-	function isBoardFull(squares) {
-		for (let i = 0; i < squares.length; i++) {
-			if (squares[i] == null) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	function calculateWinner(squares) {
-		const lines = [
-			[0, 1, 2],
-			[3, 4, 5],
-			[6, 7, 8],
-			[0, 3, 6],
-			[1, 4, 7],
-			[2, 5, 8],
-			[0, 4, 8],
-			[2, 4, 6],
-		];
-		// go over all possibly winning lines and check if they consist of only X's/only O's
-		for (let i = 0; i < lines.length; i++) {
-			const [a, b, c] = lines[i];
-			if (
-				squares[a] &&
-				squares[a] === squares[b] &&
-				squares[a] === squares[c]
-			) {
-				return squares[a];
-			}
-		}
-		return null;
-	}
+	}, [winner]);
 
 	return (
 		<>
 			<div className="container">
 				<div className="game">
+					<Scores
+						resetScores={resetScores}
+						changeNames={changeNames}
+						players={players}
+						scores={scores}
+					/>
 					<h1>Noughts and Crosses</h1>
 					<div className="game-board">
 						<div className="board-row">
-							{renderSquare(0)}
-							{renderSquare(1)}
-							{renderSquare(2)}
+							<RenderSquare
+								i={0}
+								squares={squares}
+								setSquares={setSquares}
+								winner={winner}
+								symbol={symbol}
+								setSymbol={setSymbol}
+							/>
+							<RenderSquare
+								i={1}
+								squares={squares}
+								setSquares={setSquares}
+								winner={winner}
+								symbol={symbol}
+								setSymbol={setSymbol}
+							/>
+							<RenderSquare
+								i={2}
+								squares={squares}
+								setSquares={setSquares}
+								winner={winner}
+								symbol={symbol}
+								setSymbol={setSymbol}
+							/>
 						</div>
 						<div className="board-row">
-							{renderSquare(3)}
-							{renderSquare(4)}
-							{renderSquare(5)}
+							<RenderSquare
+								i={3}
+								squares={squares}
+								setSquares={setSquares}
+								winner={winner}
+								symbol={symbol}
+								setSymbol={setSymbol}
+							/>
+							<RenderSquare
+								i={4}
+								squares={squares}
+								setSquares={setSquares}
+								winner={winner}
+								symbol={symbol}
+								setSymbol={setSymbol}
+							/>
+							<RenderSquare
+								i={5}
+								squares={squares}
+								setSquares={setSquares}
+								winner={winner}
+								symbol={symbol}
+								setSymbol={setSymbol}
+							/>
 						</div>
 						<div className="board-row">
-							{renderSquare(6)}
-							{renderSquare(7)}
-							{renderSquare(8)}
+							<RenderSquare
+								i={6}
+								squares={squares}
+								setSquares={setSquares}
+								winner={winner}
+								symbol={symbol}
+								setSymbol={setSymbol}
+							/>
+							<RenderSquare
+								i={7}
+								squares={squares}
+								setSquares={setSquares}
+								winner={winner}
+								symbol={symbol}
+								setSymbol={setSymbol}
+							/>
+							<RenderSquare
+								i={8}
+								squares={squares}
+								setSquares={setSquares}
+								winner={winner}
+								symbol={symbol}
+								setSymbol={setSymbol}
+							/>
 						</div>
 					</div>
-					<div className="game-info">{getStatus()}</div>
+					<div className="game-info">
+						<GetStatus
+							winner={winner}
+							symbol={symbol}
+							setSymbol={setSymbol}
+							squares={squares}
+							setSquares={setSquares}
+						/>
+					</div>
 					{!winner && (
-						<div className="restart-button">{renderRestartButton()}</div>
+						<RenderRestartButton
+							setSquares={setSquares}
+							setSymbol={setSymbol}
+						/>
 					)}
 				</div>
 			</div>
