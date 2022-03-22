@@ -11,17 +11,7 @@ function Game() {
 	const [squares, setSquares] = useState(Array(9).fill(null));
 	const [symbol, setSymbol] = useState('X');
 	const winner = CalculateWinner(squares);
-	const [players, setPlayers] = useState(['X', 'O']);
 	const [scores, setScores] = useState([0, 0]);
-
-	const resetScores = () => {
-		setScores([0, 0]);
-	};
-
-	const changeNames = () => {
-		alert('username');
-		// setPlayers
-	};
 
 	useEffect(() => {
 		if (winner === 'X') {
@@ -31,16 +21,15 @@ function Game() {
 		}
 	}, [winner]);
 
+	const resetScores = () => {
+		setScores([0, 0]);
+	};
+
 	return (
 		<>
 			<div className="container">
 				<div className="game">
-					<Scores
-						resetScores={resetScores}
-						changeNames={changeNames}
-						players={players}
-						scores={scores}
-					/>
+					<Scores scores={scores} resetScores={resetScores} />
 					<h1>Noughts and Crosses</h1>
 					<div className="game-board">
 						<div className="board-row">

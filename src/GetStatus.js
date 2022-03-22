@@ -13,15 +13,19 @@ const GetStatus = ({ winner, symbol, setSymbol, squares, setSquares }) => {
 	if (winner) {
 		return (
 			<div className="modal">
-				<p className="modal-text">Winner: {winner}</p>
-				<RenderRestartButton setSquares={setSquares} setSymbol={setSymbol} />
+				<div className="modal-content">
+					<p className="modal-text">Winner: {winner}</p>
+					<RenderRestartButton setSquares={setSquares} setSymbol={setSymbol} />
+				</div>
 			</div>
 		);
 	} else if (isBoardFull(squares)) {
 		return (
 			<div className="modal">
-				<p className="modal-text">Draw!</p>
-				<RenderRestartButton setSquares={setSquares} setSymbol={setSymbol} />
+				<div className="modal-content">
+					<p className="modal-text">Draw!</p>
+					<RenderRestartButton setSquares={setSquares} setSymbol={setSymbol} />
+				</div>
 			</div>
 		);
 	} else {
