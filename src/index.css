@@ -159,6 +159,10 @@ input {
 		margin: 10px;
 	}
 
+	.modal-text {
+		font-size: 30pt;
+	}
+
 	.scores {
 		position: relative;
 		width: 90%;

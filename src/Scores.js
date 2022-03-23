@@ -16,6 +16,8 @@ const Scores = ({ resetScores, scores }) => {
 			alert(' Player 1, Please choose a nickname shorter than 10 characters');
 		} else if (player2.length >= 10) {
 			alert(' Player 2, Please choose a nickname shorter than 10 characters');
+		} else if (player1 === '' && player2 === '') {
+			setPlayers(['X', 'O']);
 		} else {
 			setPlayers([`X: ${player1}`, `O: ${player2}`]);
 		}
