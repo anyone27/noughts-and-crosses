@@ -8,21 +8,38 @@ const Scores = ({ resetScores, scores }) => {
 		setChangeNames(true);
 	};
 
-	const handleUserChange = () => {
-		setPlayers('X: ' + player1.value, 'O: ' + player2.value);
+	const handleUserChange = (event) => {
+		event.preventDefault();
+		const player1 = event.target[0].value;
+		const player2 = event.target[1].value;
+		if (player1.length >= 10) {
+			alert(' Player 1, Please choose a nickname shorter than 10 characters');
+		} else if (player2.length >= 10) {
+			alert(' Player 2, Please choose a nickname shorter than 10 characters');
+		} else {
+			setPlayers([`X: ${player1}`, `O: ${player2}`]);
+		}
 		setChangeNames(false);
 	};
 
 	if (changeNames) {
 		return (
 			<div className="modal">
-				<form onSubmit={handleUserChange}>
-					<input id="player1" type="text" default="X" />
-					<input id="player2" type="text" default="O" />
-					<button type="submit" value="Submit">
-						Submit
-					</button>
-				</form>
+				<div className="modal-content">
+					<form onSubmit={handleUserChange} className="changename">
+						<span className="player1">
+							<label htmlFor="player1">Player 1 </label>
+							<input name="player1" type="text" />
+						</span>
+						<span className="player2">
+							<label htmlFor="player2">Player 2 </label>
+							<input name="player2" type="text" />
+						</span>
+						<button className="changename-button" type="submit" value="Submit">
+							Submit
+						</button>
+					</form>
+				</div>
 			</div>
 		);
 	} else {
