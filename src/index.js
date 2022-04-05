@@ -13,13 +13,15 @@ function Game() {
 	const winner = CalculateWinner(squares);
 	const [scores, setScores] = useState([0, 0]);
 
+	console.log(scores);
+
 	useEffect(() => {
 		if (winner === 'X') {
 			scores[0]++;
 		} else if (winner === 'O') {
 			scores[1]++;
 		}
-	}, [winner]);
+	}, [winner, scores]);
 
 	const resetScores = () => {
 		setScores([0, 0]);

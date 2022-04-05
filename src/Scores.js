@@ -46,7 +46,7 @@ const Scores = ({ resetScores, scores }) => {
 		);
 	} else {
 		return (
-			<div className="scores">
+			<div className="score-board">
 				<h2>
 					<p>
 						{players[0]} - Score: {scores[0]}{' '}
