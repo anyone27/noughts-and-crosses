@@ -157,7 +157,7 @@ input {
 	}
 
 	.score-board {
-		position: relative;
+		position: inherit;
 		width: 90%;
 	}
 	
